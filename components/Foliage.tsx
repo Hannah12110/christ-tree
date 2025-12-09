@@ -137,15 +137,13 @@ export const Foliage: React.FC<FoliageProps> = ({ state }) => {
     }
   });
 
-  return (
+return (
     <points geometry={geometry}>
-      <shaderMaterial
-        ref={materialRef}
-        attach="material"
-        args={[FoliageShaderMaterial]}
-        transparent={true}
-        depthWrite={false}
-        blending={THREE.NormalBlending} 
+      {/* 👇 禁用自定义着色器，使用标准的 BasicMaterial */}
+      <pointsMaterial 
+        color="white" 
+        size={0.1} 
+        sizeAttenuation={true} 
       />
     </points>
   );
