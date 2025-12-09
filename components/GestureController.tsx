@@ -1,15 +1,5 @@
-// src/components/GestureController.tsx
+// components/GestureController.tsx
 
-export const GestureController: React.FC<GestureControllerProps> = ({ interactionRef }) => {
-  // ------------------------------------------------------------------
-  // 插入以下行，直接返回 null，彻底禁用组件及其逻辑
-  // ------------------------------------------------------------------
-  return null; 
-  
-  // ... 其他代码（可以保留，但不会被执行）
-  const videoRef = useRef<HTMLVideoElement>(null);
-  // ...
-}
 import React, { useEffect, useRef, useState } from 'react';
 import { FilesetResolver, HandLandmarker } from '@mediapipe/tasks-vision';
 import { InteractionState } from '../types';
@@ -19,7 +9,11 @@ interface GestureControllerProps {
 }
 
 export const GestureController: React.FC<GestureControllerProps> = ({ interactionRef }) => {
+  // 👇 最终修复：强制返回 null，彻底禁用组件及其所有逻辑
   return null;
+  
+  // ****** 注意：以下所有代码都是死代码 (Dead Code)，但保留是为了防止编译错误 ******
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isModelLoaded, setIsModelLoaded] = useState(false);
   const [isEnabled, setIsEnabled] = useState(false); // Default closed as requested
