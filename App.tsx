@@ -21,13 +21,13 @@ function App() {
   };
 
   return (
-    <div className="relative w-full h-screen bg-slate-900 touch-none">
+   <div className="relative w-full h-screen bg-slate-900 touch-none">
+      
+  {/* Gesture Controller (Webcam Logic) - 保持注释状态以修复Vercel黑屏问题 */}
+  {/* <GestureController interactionRef={interactionRef} /> */}
 
-      {/* Gesture Controller (Webcam Logic) - 暂时禁用以保证部署成功 */}
-      {/* <GestureController interactionRef={interactionRef} /> */}
-
-      {/* 3D Canvas */}
-      <Canvas
+  {/* 3D Canvas */}
+  <Canvas
         shadows
         camera={{ position: [0, 2, 35], fov: 35 }}
         dpr={[1, 2]} 
