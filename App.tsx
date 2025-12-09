@@ -1,4 +1,4 @@
-import React, { useState, Suspense, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 import { Loader } from '@react-three/drei';
@@ -8,6 +8,9 @@ import { TreeState, InteractionState } from './types';
 
 function App() {
   const [treeState, setTreeState] = useState<TreeState>(TreeState.FORMED);
+  
+  // 1. 强制 WebGL 上下文创建所需
+  const appRoot = useRef(null); 
   
   // Shared interaction state
   const interactionRef = useRef<InteractionState>({
@@ -22,22 +25,30 @@ function App() {
   };
 
   return (
-   <div className="relative w-full h-screen bg-slate-900 touch-none">
+   <div 
+      ref={appRoot} // 2. 将 ref 赋给最外层 div
+      className="relative w-full h-screen bg-slate-900 touch-none"
+   >
       
-  {/* Gesture Controller (Webcam Logic) - 保持注释状态以修复Vercel黑屏问题 */}
+  {/* Gesture Controller (Webcam Logic) - 保持禁用状态 */}
   {/* <GestureController interactionRef={interactionRef} /> */}
 
   {/* 3D Canvas */}
   <Canvas
-       // 👇 添加以下属性
-  gl={{ antialias: true, alpha: false, logarithmicDepthBuffer: true }}
-  dpr={[1, 2]} // 强制设置像素比
-  linear // 强制使用线性色彩空间
->
-  <Suspense fallback={null}>
-    {/* ... 你的 Experience 和其他组件 ... */}
-  </Suspense>
-</Canvas>
+    // 3. 最终 WebGL 兼容性配置
+    gl={{ antialias: true, alpha: false, logarithmicDepthBuffer: true }}
+    dpr={[1, 2]} 
+    linear 
+    flat // 强制使用线性颜色空间，解决色彩问题
+    eventSource={appRoot} // 修复事件监听，帮助 WebGL 上下文创建
+    // style={{ position: 'absolute' }} // Canvas 默认会填充父级 div
+  >
+    <Suspense fallback={null}>
+      {/* 4. 确保 Experience 组件被渲染 */}
+      <Experience treeState={treeState} interactionRef={interactionRef} />
+    </Suspense>
+  </Canvas>
+      
       <Loader />
 
       {/* Luxury UI Overlay */}
