@@ -1,5 +1,6 @@
 import React, { useState, Suspense, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
+import { Suspense } from 'react';
 import { Loader } from '@react-three/drei';
 import { Experience } from './components/Experience';
 import { GestureController } from './components/GestureController';
@@ -28,18 +29,15 @@ function App() {
 
   {/* 3D Canvas */}
   <Canvas
-        shadows
-        camera={{ position: [0, 2, 35], fov: 35 }}
-        dpr={[1, 2]} 
-        gl={{ 
-          antialias: false, 
-          toneMappingExposure: 1.1
-        }}
-      >
-        <Suspense fallback={null}>
-          <Experience treeState={treeState} interactionRef={interactionRef} />
-        </Suspense>
-      </Canvas>
+       // 👇 添加以下属性
+  gl={{ antialias: true, alpha: false, logarithmicDepthBuffer: true }}
+  dpr={[1, 2]} // 强制设置像素比
+  linear // 强制使用线性色彩空间
+>
+  <Suspense fallback={null}>
+    {/* ... 你的 Experience 和其他组件 ... */}
+  </Suspense>
+</Canvas>
       <Loader />
 
       {/* Luxury UI Overlay */}

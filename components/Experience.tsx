@@ -101,12 +101,6 @@ export const Experience: React.FC<ExperienceProps> = ({ treeState, interactionRe
       />
       <pointLight position={[-10, 5, -10]} intensity={80} color="#10b981" />
       <Environment preset="lobby" background={false} />
-{/* 👇 TEMPORARY RENDER TEST: 确保 WebGL 上下文已启动 */}
-      <mesh position={[0, 5, 0]}>
-        <boxGeometry args={[2, 2, 2]} />
-        <meshBasicMaterial color="red" />
-      </mesh>
-      {/* 👆 END TEMPORARY RENDER TEST */}
 
       <group ref={groupRef}>
         <Foliage state={treeState} />
