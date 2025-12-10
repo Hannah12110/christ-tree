@@ -23,11 +23,13 @@ export default defineConfig(({ mode }) => {
       },
       build: {
         target: 'es2020',
+        // 👇 关键修复：强制禁用优化和代码分割
+        minify: false,
+        cssCodeSplit: false,
+        // 👆
       },
-      // 👇 关键修复：强制 Vite 不要对 Three.js 进行预构建或优化
       optimizeDeps: {
           exclude: ['three'],
       },
-      // 👆
     };
 });
