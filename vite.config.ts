@@ -1,3 +1,5 @@
+// vite.config.js
+
 import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
@@ -19,9 +21,12 @@ export default defineConfig(({ mode }) => {
           '@': path.resolve(__dirname, '.'),
         }
       },
-      // 👇 关键修复：强制 Vite 输出 ES2020 兼容的代码，以提高生产环境的兼容性
       build: {
         target: 'es2020',
+      },
+      // 👇 关键修复：强制 Vite 不要对 Three.js 进行预构建或优化
+      optimizeDeps: {
+          exclude: ['three'],
       },
       // 👆
     };
